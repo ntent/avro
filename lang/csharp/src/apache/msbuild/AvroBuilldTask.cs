@@ -72,23 +72,27 @@ namespace Avro.msbuild
             Log.LogMessage("Avro compiling...");
 
             var codegen = new CodeGen();
-            var json = Protocol.Parse(System.IO.File.ReadAllText(ProtocolFile.ItemSpec));
-            foreach (var t in json.Types)
+            foreach (var protocol in ProtocolFiles)
             {
-                codegen.AddSchema(t);
-                Log.LogMessage("Generating {0}", t.Name);
+                var json = Protocol.Parse(System.IO.File.ReadAllText(protocol.ItemSpec));
+                foreach (var t in json.Types)
+                {
+                    codegen.AddSchema(t);
+                    Log.LogMessage("Generating {0}", t.Name);
+                }
             }
 
             codegen.GenerateCode();
-            codegen.WriteCompileUnit(CompiledFile.ItemSpec);
+            codegen.WriteTypes(OutDir.ItemSpec);
 
             return true;
         }
 
-        public ITaskItem ProtocolFile { get; set; }
+        [Required]
+        public ITaskItem[] ProtocolFiles { get; set; }
 
-        [Output, Required]
-        public ITaskItem CompiledFile { get; set; }
+        [Required]
+        public ITaskItem OutDir { get; set; }
     }
 
 }
