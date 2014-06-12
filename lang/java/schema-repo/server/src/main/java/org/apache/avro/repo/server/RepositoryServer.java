@@ -40,6 +40,8 @@ import com.google.inject.servlet.GuiceFilter;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
+import static java.lang.Thread.sleep;
+
 /**
  * A {@link RepositoryServer} is a stand-alone server for running a
  * {@link RESTRepository}. {@link #main(String...)} takes a single argument
@@ -83,7 +85,7 @@ public class RepositoryServer {
     }
     Properties props = new Properties();
     props.load(new BufferedInputStream(new FileInputStream(config)));
-
+sleep(3000); //TODO DELETE!!! FOR DEBUG ONLY
     RepositoryServer server = new RepositoryServer(props);
     try {
       server.start();
