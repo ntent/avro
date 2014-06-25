@@ -4,6 +4,8 @@ Trunk (not yet released)
 
   NEW FEATURES
 
+    AVRO-1315. Java: Schema Validation utilities. (scottcarey and tomwhite)
+
     AVRO-1439. Java: Add AvroMultipleInputs for mapred. (Harsh J via cutting)
 
     AVRO-974. Add a Perl implementation of Avro. (Yann Kerhervé & John Karp)
@@ -14,6 +16,9 @@ Trunk (not yet released)
     AVRO-1402. Add optional subtypes to specification, initially
     including a subtype of bytes and fixed for decimal values.
     (tomwhite & Ryan Blue via cutting)
+
+    AVRO-1522. Java: Add support for compression codecs to SortedKeyValueFile.
+    (Steven Willis via cutting)
 
   OPTIMIZATIONS
 
@@ -40,6 +45,11 @@ Trunk (not yet released)
     AVRO-1482. In specification, place "null" first in unions as best practice.
     (cutting)
 
+    AVRO-1476. Java: Remove transient declaration from Schema.Field#position.
+    (Robert Chu via cutting)
+
+    AVRO-1512. Java: Support Thrift unions. (cutting)
+
   BUG FIXES
 
     AVRO-1446. C#: Correctly handle system errors in RPC.
@@ -61,6 +71,25 @@ Trunk (not yet released)
 
     AVRO-1459. Ruby: Fix a typo in Rakefile that breaks 'gem install'.
     (Tomas Svarovsky via cutting)
+
+    AVRO-1457. Java: Fix Encoder so that offset in non-array-backed
+    ByteBuffers is not altered when written. (Rob Turner via cutting)
+
+    AVRO-1442. Java: Fix ResolvingGrammarGenerator to work with fixed type.
+    (Jim Pivarski via cutting)
+
+    AVRO-1500. Java: Fix bug in handling of Thrift shorts in unions.
+    (Michael Pershyn via cutting)
+
+    AVRO-1513. Perl: Remove test plans from unit test files.
+    (John Karp via cutting)
+
+    AVRO-1462. Perl: Stop spurious serializer warnings about Non-ASCII
+    decimal characters.  (John Karp via cutting)
+
+    AVRO-1470. Perl: Fix encoding of boolean values. (John Karp via cutting)
+
+    AVRO-1525. Java: ReflectData cannot resolve union with fixed. (tomwhite)
 
 Avro 1.7.6 (15 January 2014)
 

@@ -81,6 +81,7 @@ public class ThriftData extends GenericData {
 
   @Override
   protected void setField(Object r, String n, int pos, Object v, Object state) {
+    if (v == null && r instanceof TUnion) return;
     ((TBase)r).setFieldValue(((TFieldIdEnum[])state)[pos], v);
   }
 
@@ -110,8 +111,17 @@ public class ThriftData extends GenericData {
   }
 
   @Override
+  protected String getSchemaName(Object datum) {
+    // support implicit conversion from thrift's i16
+    // to avro INT for thrift's optional fields
+    if (datum instanceof Short)
+      return Schema.Type.INT.getName();
+    return super.getSchemaName(datum);
+  }
+
+  @Override
   protected boolean isRecord(Object datum) {
-    return datum instanceof TBase && !(datum instanceof TUnion);
+    return datum instanceof TBase;
   }
 
   @Override

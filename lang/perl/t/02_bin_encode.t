@@ -21,7 +21,7 @@ use strict;
 use warnings;
 use Avro::Schema;
 use Config;
-use Test::More tests => 24;
+use Test::More;
 use Test::Exception;
 use Math::BigInt;
 
@@ -43,6 +43,9 @@ sub primitive_ok {
 {
     primitive_ok null    =>    undef, '';
     primitive_ok null    => 'whatev', '';
+
+    primitive_ok boolean => 0, "\x0";
+    primitive_ok boolean => 1, "\x1";
 
     ## - high-bit of each byte should be set except for last one
     ## - rest of bits are:
@@ -81,10 +84,17 @@ sub primitive_ok {
     } "Avro::BinaryEncoder::Error", "65 bits";
 
     for (qw(long int)) {
-        dies_ok {
+        throws_ok {
             primitive_ok $_ =>  "x", undef;
-        } "numeric values only";
-    }
+        } 'Avro::BinaryEncoder::Error', 'numeric values only';
+    };
+    # In Unicode, there are decimals that aren't 0-9.
+    # Make sure we handle non-ascii decimals cleanly.
+    for (qw(long int)) {
+        throws_ok {
+            primitive_ok $_ =>  "\N{U+0661}", undef;
+        } 'Avro::BinaryEncoder::Error', 'ascii decimals only';
+    };
 }
 
 ## spec examples

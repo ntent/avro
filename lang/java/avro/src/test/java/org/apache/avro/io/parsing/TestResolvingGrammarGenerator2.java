@@ -15,53 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.avro.io.parsing;
 
-namespace java org.apache.avro.thrift.test
+import org.apache.avro.io.parsing.ResolvingGrammarGenerator;
+import org.apache.avro.Schema;
+import org.junit.Test;
 
-enum E {
-  X = 1,
-  Y = 2,
-  Z = 3,
-}
-
-struct Nested {
-  1: i32 x
-}
-
-union FooOrBar {
-  1: string foo;
-  2: string bar;
-}
-
-
-// contains each primitive type
-struct Test {
-  1: bool boolField
-  2: byte byteField
-  3: i16 i16Field
- 15: optional i16 i16OptionalField
-  4: optional i32 i32Field
-  5: i64 i64Field
-  6: double doubleField
-  7: string stringField
-  8: optional binary binaryField
-  9: map<string,i32> mapField
- 10: list<i32> listField
- 11: set<i32> setField
- 12: E enumField
- 13: Nested structField
- 14: FooOrBar fooOrBar
-}
-
-exception Error {
-  1: string message,
-}
-
-service Foo {
-
-   void ping(),
-
-   i32 add(1:i32 num1, 2:i32 num2),
-
-   oneway void zip(),
+/** ResolvingGrammarGenerator tests that are not Parameterized.*/
+public class TestResolvingGrammarGenerator2 {  
+  @Test public void testFixed() throws java.io.IOException {
+    new ResolvingGrammarGenerator().generate
+      (Schema.createFixed("MyFixed", null, null, 10),
+       Schema.create(Schema.Type.BYTES));
+    new ResolvingGrammarGenerator().generate
+      (Schema.create(Schema.Type.BYTES),
+       Schema.createFixed("MyFixed", null, null, 10));
+  }
 }
