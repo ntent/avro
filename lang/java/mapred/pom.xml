@@ -23,7 +23,7 @@
   <parent>
     <artifactId>avro-parent</artifactId>
     <groupId>org.apache.avro</groupId>
-    <version>1.7.7-SNAPSHOT</version>
+    <version>1.7.7-1315-1124-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -82,7 +82,7 @@
                 <include>**/mapred/tether/*.avpr</include>
               </includes>
               <sourceDirectory>${parent.project.basedir}/../../../../share/schemas/</sourceDirectory>
-              <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>a
+              <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
             </configuration>
           </execution>
         </executions>
