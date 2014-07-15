@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>avro-repo-parent</artifactId>
+        <groupId>org.apache.avro.repo</groupId>
+        <version>1.7.7-1315-1124-SNAPSHOT</version>
+        <relativePath>../../schema-repo/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>avro-repo-db</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.avro.repo</groupId>
+            <artifactId>avro-repo-common</artifactId>
+            <version>1.7.7-1315-1124-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <!-- users who choose to use the annotations for Guice/Spring/etc
+             will need to include this, others can ignore -->
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+    </dependencies>
+
+</project>
