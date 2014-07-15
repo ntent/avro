@@ -94,6 +94,7 @@ public class RESTRepository {
   @GET
   @Path("{subject}/all")
   public String subjectList(@PathParam("subject") String subject) {
+    subject = truncateSubject(subject);
     Subject s = repo.lookup(subject);
     if (null == s) {
       throw new NotFoundException();
@@ -105,6 +106,7 @@ public class RESTRepository {
   @GET
   @Path("{subject}/config")
   public String subjectConfig(@PathParam("subject") String subject) {
+    subject = truncateSubject(subject);
     Subject s = repo.lookup(subject);
     if (null == s) {
       throw new NotFoundException();
@@ -137,6 +139,7 @@ public class RESTRepository {
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   public Response createSubject(@PathParam("subject") String subject,
       MultivaluedMap<String, String> configParams) {
+    subject = truncateSubject(subject);
     if (null == subject) {
       return Response.status(400).build();
     }
@@ -162,7 +165,7 @@ public class RESTRepository {
   @GET
   @Path("{subject}/latest")
   public String latest(@PathParam("subject") String subject) {
-    return exists(getSubject(subject).latest()).toString();
+    return exists(getSubject(truncateSubject(subject)).latest()).toString();
   }
 
   /**
@@ -179,7 +182,7 @@ public class RESTRepository {
   @Path("{subject}/id/{id}")
   public String schemaFromId(@PathParam("subject") String subject,
       @PathParam("id") String id) {
-    return exists(getSubject(subject).lookupById(id)).getSchema();
+    return exists(getSubject(truncateSubject(subject)).lookupById(id)).getSchema();
   }
 
   /**
@@ -196,7 +199,7 @@ public class RESTRepository {
   @Path("{subject}/schema")
   @Consumes(MediaType.TEXT_PLAIN)
   public String idFromSchema(@PathParam("subject") String subject, String schema) {
-    return exists(getSubject(subject).lookupBySchema(schema)).getId();
+    return exists(getSubject(truncateSubject(subject)).lookupBySchema(schema)).getId();
   }
 
   /**
@@ -215,6 +218,7 @@ public class RESTRepository {
   @Consumes(MediaType.TEXT_PLAIN)
   public Response addSchema(@PathParam("subject") String subject, String schema) {
     try {
+      subject = truncateSubject(subject);
       return Response.ok(getSubject(subject).register(schema).getId()).build();
     } catch (SchemaValidationException e) {
       return Response.status(Status.FORBIDDEN).build();
@@ -242,6 +246,7 @@ public class RESTRepository {
   @Consumes(MediaType.TEXT_PLAIN)
   public Response addSchema(@PathParam("subject") String subject,
       @PathParam("latestId") String latestId, String schema) {
+    subject = truncateSubject(subject);
     Subject s = getSubject(subject);
     SchemaEntry latest;
     if ("".equals(latestId)) {
@@ -272,6 +277,7 @@ public class RESTRepository {
   @GET
   @Path("{subject}")
   public Response checkSubject(@PathParam("subject") String subject) {
+    subject = truncateSubject(subject);
     getSubject(subject);
     return Response.ok().build();
   }
@@ -279,10 +285,11 @@ public class RESTRepository {
   @GET
   @Path("{subject}/integral")
   public String getSubjectIntegralKeys(@PathParam("subject") String subject) {
-    return Boolean.toString(getSubject(subject).integralKeys());
+    return Boolean.toString(getSubject(truncateSubject(subject)).integralKeys());
   }
 
   private Subject getSubject(String subjectName) {
+    subjectName = truncateSubject(subjectName);
     Subject subject = repo.lookup(subjectName);
     if (null == subject) {
       throw new NotFoundException();
@@ -295,6 +302,20 @@ public class RESTRepository {
       throw new NotFoundException();
     }
     return entry;
+  }
+
+  /**
+   * Ntent-specific functionality. Truncate name after "-" symbol
+  **/
+  static String truncateSubject(String subjName) {
+      if(subjName == null || subjName.isEmpty())
+          return subjName;
+      int pos = subjName.indexOf('-');
+      if(pos == -1)
+          return subjName;
+      if(pos == 0)
+          return "";
+      return subjName.substring(0, pos);
   }
 
 }
