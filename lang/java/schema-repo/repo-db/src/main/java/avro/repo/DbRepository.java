@@ -111,6 +111,7 @@ public class DbRepository implements Repository {
         protected DbSubject(String name, SubjectConfig config) {
             super(name);
             this.config = RepositoryUtil.safeConfig(config);
+            createSubject(this.getName());
         }
 
         @Override
@@ -127,6 +128,8 @@ public class DbRepository implements Repository {
         public SchemaEntry register(String schema) throws SchemaValidationException {
             RepositoryUtil.validateSchemaOrSubject(schema);
             SchemaEntry entry = loadOrCreate(schema);
+            schemas.add(entry);
+            latest = entry;
             return entry;
         }
 
@@ -161,6 +164,42 @@ public class DbRepository implements Repository {
         //
         // Helper functions
         //
+
+        int createSubject(String subjectName) {
+
+            Connection conn = null;
+            try {
+                int topicId;
+                conn = connect(jdbc);
+                // topic is not cached
+                PreparedStatement ste = conn.prepareStatement(
+                        "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;\n"+
+                                "select Id from dbo.Topic where Topic=?");
+                ste.setString(1, subjectName);
+                ResultSet res = ste.executeQuery();
+                if(res.next()) {
+                    // topic is already registered, just cache it
+                    int id = res.getInt(1);
+                    topicId = id;
+                } else {
+                    // topic does not exist in db, create it
+                    PreparedStatement ste2 = conn.prepareStatement(
+                            "insert into dbo.Topic(Topic) values(?);\n"+
+                                    "select Id from dbo.Topic where Topic=?");
+                    ste2.setString(1, subjectName);
+                    ste2.setString(2, subjectName);
+                    ResultSet res2 = ste2.executeQuery();
+                    res2.next();
+                    int id = res2.getInt(1);
+                    topicId = id;
+                }
+                return topicId;
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         SchemaEntry loadOrCreate(String schema) {
             int topicId;
