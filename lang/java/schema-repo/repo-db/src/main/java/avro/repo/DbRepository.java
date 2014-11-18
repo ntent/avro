@@ -294,7 +294,7 @@ public class DbRepository implements Repository {
 
         void loadSubjects(Connection conn, Integer id) throws SQLException {
             // load schemas into subjects
-            PreparedStatement ste = conn.prepareStatement("select s.[Schema], s.Hash\n" +
+            PreparedStatement ste = conn.prepareStatement("select s.[Schema], s.Id\n" +
                     "from dbo.TopicSchemaMap m\n" +
                     "join dbo.[Schema] s on s.Id=m.SchemaId\n" +
                     "where m.TopicId=?\n" +
@@ -303,8 +303,8 @@ public class DbRepository implements Repository {
             ResultSet res = ste.executeQuery();
             while(res.next()) {
                 String schema = res.getString(1);
-                String hash = res.getString(2);
-                SchemaEntry se = new SchemaEntry(hash, schema);
+                int schemaId = res.getInt(2);
+                SchemaEntry se = new SchemaEntry(String.valueOf(schemaId), schema);
                 this.schemas.add(se);
                 latest = se;
             }
