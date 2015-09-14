@@ -17,6 +17,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -142,7 +143,7 @@ namespace Avro.Specific
                     if (assembly.FullName.StartsWith("MonoDevelop.NUnit"))
                         continue;
 
-                    types = assembly.GetTypes();
+                    types = SafeGetTypes(assembly).ToArray();
 
                     // Change the search to look for Types by both NAME and FULLNAME
                     foreach (Type t in types)
@@ -163,6 +164,23 @@ namespace Avro.Specific
             return type;
         }
 
+
+        /// <summary>
+        /// Safe version of GetTypes() that handles the TypeLoadException and gets the ones that were successfully loaded.
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> SafeGetTypes(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes().Where(t => t != null);
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                return ex.Types.Where(t => t != null);
+            }
+        }
 
         /// <summary>
         /// Gets the type for the specified schema
