@@ -125,9 +125,21 @@ namespace Avro.Specific
                     else
                         Skip(wf.Schema, dec);
                 }
+                catch (ReflectionTypeLoadException rtle)
+                {
+                    var msg = "Reflection Type Load Exception when loading types ["; 
+                    msg += string.Join(",", rtle.Types != null ? rtle.Types.Where(t=>t != null).Select(t=>t.Name).ToArray() : new string[0]);
+                    msg += "] in field " + wf.Name; 
+                    if (rtle.LoaderExceptions != null)
+                    {
+                        msg += " Loader Exceptions : \r\n" + String.Join("\r\n", rtle.LoaderExceptions.Where(le=>le != null).Select(le=>le.ToString()).ToArray());
+                    }
+
+                    throw new AvroException(msg,rtle);
+                }
                 catch (Exception ex)
                 {
-                    throw new AvroException(ex.Message + " in field " + wf.Name);
+                    throw new AvroException(ex.Message + " in field " + wf.Name, ex);
                 }
             }
             
