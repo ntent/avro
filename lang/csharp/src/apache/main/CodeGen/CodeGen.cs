@@ -119,20 +119,22 @@ namespace Avro
         /// </summary>
         protected virtual void processSchemas()
         {
+            var names = new SchemaNames();
             foreach (Schema schema in this.Schemas)
+                addName(schema, names);
+
+            foreach (var sn in names)
             {
-                SchemaNames names = generateNames(schema);
-                foreach (KeyValuePair<SchemaName, NamedSchema> sn in names)
+                switch (sn.Value.Tag)
                 {
-                    switch (sn.Value.Tag)
-                    {
-                        case Schema.Type.Enumeration: processEnum(sn.Value); break;
-                        case Schema.Type.Fixed: processFixed(sn.Value); break;
-                        case Schema.Type.Record: processRecord(sn.Value); break;
-                        case Schema.Type.Error: processRecord(sn.Value); break;
-                        default:
-                            throw new CodeGenException("Names in schema should only be of type NamedSchema, type found " + sn.Value.Tag);
-                    }
+                    case Schema.Type.Enumeration: processEnum(sn.Value); break;
+                    case Schema.Type.Fixed: processFixed(sn.Value); break;
+                    case Schema.Type.Record:
+                    case Schema.Type.Error:
+                        processRecord(sn.Value);
+                        break;
+                    default:
+                        throw new CodeGenException("Names in schema should only be of type NamedSchema, type found " + sn.Value.Tag);
                 }
             }
         }
