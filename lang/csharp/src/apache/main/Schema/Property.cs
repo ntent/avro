@@ -78,7 +78,7 @@ namespace Avro
                 if (ReservedProps.Contains(kp.Key)) continue;
 
                 writer.WritePropertyName(kp.Key);
-                writer.WriteRawValue(kp.Value);
+                writer.WriteValue(kp.Value);
             }
         }
 
