@@ -20,7 +20,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Avro.codegen")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Avro C# code generator")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("3C23DD33-DD4F-42B1-B71F-8F9C86929E58")]

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Avro.main</id>
+    <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
@@ -13,5 +13,6 @@
     <description>$description$</description>
     <copyright>Copyright 2015</copyright>
     <tags>apache avro</tags>
+    <developmentDependency>true</developmentDependency>
   </metadata>
 </package>

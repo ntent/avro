@@ -20,7 +20,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Avro.msbuild")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Avro msbuild codegen task")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("A7982FA5-F369-457F-894E-4F90262E4638")]
