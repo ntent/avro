@@ -17,10 +17,8 @@
  */
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Avro.test")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("442785CE-3633-4A04-A103-434104F63D55")]
+[assembly: AssemblyCompany("Apache")]
+[assembly: AssemblyProduct("Avro")]
+[assembly: AssemblyCopyright("Copyright © Apache 2013")]
+[assembly: AssemblyVersion("1.7.7.0")]

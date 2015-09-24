@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avro.main", "src\apache\main\Avro.main.csproj", "{A0A5CA3C-F58C-4D07-98B0-2C7B62AB20F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avro.test", "src\apache\test\Avro.test.csproj", "{911D56AB-587B-4E5F-B5EA-D47D8A46F1FA}"
@@ -15,6 +17,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avro.msbuild", "src\apache\msbuild\Avro.msbuild.csproj", "{AEB22F94-4ECF-4008-B159-389B3F05D54B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avro.perf", "src\apache\perf\Avro.perf.csproj", "{AC4E1909-2594-4D01-9B2B-B832C07BAFE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "globals", "globals", "{C230DE2B-3963-4930-81BF-9421BD297BD9}"
+	ProjectSection(SolutionItems) = preProject
+		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
