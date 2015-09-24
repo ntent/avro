@@ -85,6 +85,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CodGen\CodeGenTest.cs" />
     <Compile Include="File\FileTests.cs" />
     <Compile Include="Generic\GenericTests.cs" />

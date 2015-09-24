@@ -20,14 +20,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Avro")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Apache")]
-[assembly: AssemblyProduct("Avro")]
-[assembly: AssemblyCopyright("Copyright © Apache 2013")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyDescription("Avro C# library")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("152D7B83-9A97-45F3-B4B3-A367AFC090C4")]
-[assembly: AssemblyVersion("0.9.0.0")]
-[assembly: AssemblyFileVersion("0.9.0.0")]
+

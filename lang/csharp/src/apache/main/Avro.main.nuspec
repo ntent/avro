@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://www.apache.org/licenses/#2.0</licenseUrl>
+    <projectUrl>https://avro.apache.org/</projectUrl>
+    <iconUrl>https://avro.apache.org/images/avro-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2015</copyright>
+    <tags>apache avro</tags>
+  </metadata>
+</package>

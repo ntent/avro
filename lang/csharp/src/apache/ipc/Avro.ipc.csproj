@@ -65,6 +65,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CallFuture.cs" />
     <Compile Include="CountdownLatch.cs" />
     <Compile Include="Generic\GenericRequestor.cs" />
