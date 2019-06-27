@@ -15,12 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
-using Avro;
+using System;
 
 namespace Avro.Test
 {
@@ -31,35 +27,35 @@ namespace Avro.Test
                    ""fields"":
                     [{""name"":""f1"",""type"":""long"", ""extraprop"":""important"", ""id"":""1029"", ""aliases"":[""a"",""b"",""c""] },
                      {""name"":""f2"",""type"": ""int""}]}",
-                   true)]
+                   true, TestName = "Aliases - extra property")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"":[""Alias1""],
                    ""fields"":[{""name"":""f1"",""type"":""long"", ""order"":""junk"" },
                     {""name"":""f2"",""type"": ""int""}]}",
-                    false)]
+                    false, TestName = "Aliases - single alias 1")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"":[""Alias1""], ""customprop"":""123456"",
                    ""fields"":[{""name"":""f1"",""type"":""long"", ""order"":""ascending"", ""fprop"":""faaa"" },
                     {""name"":""f2"",""type"": ""int""}]}",
-                    true)]
+                    true, TestName = "Aliases - Single Alias with custom property")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"":[""Alias1""],
                    ""fields"":[{""name"":""f1"",""type"":""long""},
                     {""name"":""f2"",""type"": ""int""}]}",
-                    true)]
+                    true, TestName = "Aliases - Single Alias 2")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"":[""Alias1"",""Alias2""],
                    ""fields"":[{""name"":""f1"",""type"":""long""},
                     {""name"":""f2"",""type"": ""int""}]}",
-                    true)]
+                    true, TestName = "Aliases - two alias values")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"":[""Alias1"",9],
                    ""fields"":[{""name"":""f1"",""type"":""long""},
                     {""name"":""f2"",""type"": ""int""}]}",
-                    false)]
+                    false, TestName = "Aliases - bad alias 1")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"":[1, 2],
                     ""fields"":[{""name"":""f1"",""type"":""long"", ""default"": ""100""},
                     {""name"":""f2"",""type"": ""int""}]}",
-                    false)]
+                    false, TestName = "Aliases - bad alias 2")]
         [TestCase(@"{""type"":""record"",""name"":""LongList"", ""aliases"": ""wrong alias format"",
                     ""fields"":[{""name"":""value"",""type"":""long"", ""default"": ""100""},
                     {""name"":""next"",""type"":[""LongList"",""null""]}]}",
-                    false)]
+                    false, TestName = "Aliases - wrong alias format")]
         public void TestAliases(string s, bool valid)   // also tests properties, default, order
         {
             try

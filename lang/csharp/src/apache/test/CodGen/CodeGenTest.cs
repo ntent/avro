@@ -15,14 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.CodeDom.Compiler;
+using Avro.Specific;
 using Microsoft.CSharp;
 using NUnit.Framework;
-using Avro.Specific;
 
 namespace Avro.Test
 {

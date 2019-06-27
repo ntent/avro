@@ -64,4 +64,34 @@ namespace Avro.msbuild
         [Required]
         public ITaskItem OutDir { get; set; }
     }
+
+    public class AvroProtocolToSchema : Task
+    {
+        public override bool Execute()
+        {
+            Log.LogMessage("Avro compiling...");
+
+            var codegen = new CodeGen();
+            foreach (var protocol in ProtocolFiles)
+            {
+                var json = Protocol.Parse(System.IO.File.ReadAllText(protocol.ItemSpec));
+                foreach (var t in json.Types)
+                {
+                    codegen.AddSchema(t);
+                    Log.LogMessage("Generating {0}", t.Name);
+                }
+            }
+
+            codegen.GenerateCode();
+            codegen.WriteTypes(OutDir.ItemSpec);
+
+            return true;
+        }
+
+        [Required]
+        public ITaskItem[] ProtocolFiles { get; set; }
+
+        [Required]
+        public ITaskItem OutDir { get; set; }
+    }
 }
