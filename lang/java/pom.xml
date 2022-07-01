@@ -43,7 +43,7 @@
       -Dhadoop.version=2 or leave unspecified to build against Hadoop 1
     -->
     <hadoop1.version>0.20.205.0</hadoop1.version>
-    <hadoop2.version>2.0.1-alpha</hadoop2.version>
+    <hadoop2.version>2.7.0</hadoop2.version>
     <jackson.version>1.9.13</jackson.version>
     <jetty.version>6.1.26</jetty.version>
     <jetty-servlet-api.version>2.5-20081211</jetty-servlet-api.version>
